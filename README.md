@@ -21,6 +21,11 @@ Routing is the process of finding the best path from an origin to a destination 
 ### [Closest Facility](https://developers.arcgis.com/documentation/mapping-apis-and-services/routing/closest-facility-routing/)
 Closest facility routing is the process of finding one or more nearby facilities from incidents based on travel time or travel distance.
 
+## Deploy
+
+This demo is built as a static web application.
+
+1 - Download and copy the root folder to a web accessible location
 
 ## Contact
 
