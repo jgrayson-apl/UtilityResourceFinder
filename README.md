@@ -7,7 +7,7 @@ This story addresses a response to a damage report of a fallen electric distribu
 
 ## Technologies Used
 
-This demo application uses the following [Location Services](https://developers.arcgis.com/documentation/mapping-apis-and-services/services/) from the [ArcGIS Platform](https://developers.arcgis.com/documentation/mapping-apis-and-services/arcgis-platform/).
+This demo application uses the [ArcGIS API for JavaScript](https://developers.arcgis.com/javascript/latest/) and the following [Location Services](https://developers.arcgis.com/documentation/mapping-apis-and-services/services/) from the [ArcGIS Platform](https://developers.arcgis.com/documentation/mapping-apis-and-services/arcgis-platform/).
 
 ### [Geocoding](https://developers.arcgis.com/documentation/mapping-apis-and-services/search/geocoding/)
 Geocoding, also known as address search, is the process of converting text for an address or place to a complete address with a location.
