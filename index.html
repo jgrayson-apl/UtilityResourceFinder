@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0 maximum-scale=1.0"/>
+    <link rel="icon" href="./assets/favicon.ico" sizes="32x32" type="image/vnd.microsoft.icon">
+    <title class="application-title"></title>
+    
+    <!-- CALCITE -->
+    <script src="https://unpkg.com/@esri/calcite-components@1.0.0-beta.56/dist/calcite/calcite.esm.js" type="module"></script>
+    <link href="https://unpkg.com/@esri/calcite-components@1.0.0-beta.56/dist/calcite/calcite.css" rel="stylesheet" type="text/css"/>
+    
+    <!-- ArcGIS API for JavaScript-->
+    <link rel="stylesheet" href="https://js.arcgis.com/4.19/esri/themes/light/main.css">
+    <script src="https://js.arcgis.com/4.19/"></script>
+    
+    <!-- APPLICATION -->
+    <link rel="stylesheet" type="text/css" href="./css/calcite-themes.css"/>
+    <link rel="stylesheet" type="text/css" href="./css/application.css">
+    <script type="module" src="./js/Application.js"></script>
+  
+  </head>
+  <body class="calcite-theme--auto app-theme">
+    <calcite-shell dir="ltr">
+      
+      <!-- HEADER -->
+      <header class="content-row" slot="header">
+        <h2 class="application-title"></h2>
+        <div class="content-row">
+          
+          <calcite-dropdown id="user-sign-in-dropdown" alignment="start" scale="m" width="auto" type="click" hidden>
+            <calcite-button id="user-status-btn" slot="dropdown-trigger" appearance="transparent" color="neutral" scale="m" icon-start="user" alignment="center" width="auto">
+              not signed in
+            </calcite-button>
+            <calcite-dropdown-item id="user-sign-in-item" scale="m" icon-start="sign-in">
+              Sign In
+            </calcite-dropdown-item>
+            <calcite-dropdown-item id="user-sign-out-item" scale="m" icon-start="sign-out" hidden>
+              Sign Out
+            </calcite-dropdown-item>
+          </calcite-dropdown>
+          
+          <calcite-action-bar class="content-row" expand-disabled="true">
+            <calcite-action id="app-share-action" appearance="clear" scale="m" title="share current options..." text="share current options" icon="link" hidden></calcite-action>
+            <calcite-action id="app-details-action" appearance="clear" scale="m" title="app details..." text="app details" icon="information"></calcite-action>
+          </calcite-action-bar>
+          
+          <calcite-alert id="app-share-alert" icon="" auto-dismiss="" auto-dismiss-duration="medium" scale="m" color="green" aria-hidden="true" role="alert">
+            <div slot="message">
+              Shareable link has been copied to the clipboard.
+            </div>
+            <calcite-link id="app-share-link" slot="link" href="#" target="_blank" role="link" title="open in new tab">
+              open in new tab
+            </calcite-link>
+          </calcite-alert>
+        
+        </div>
+      </header>
+      
+      <!-- LEFT -->
+      <calcite-shell-panel slot="primary-panel" position="start" width-scale="m">
+        
+        <calcite-action-bar id="side-panel-action-bar" slot="action-bar">
+          <calcite-action text="Reports" icon="file-report" class="toggle-action" data-toggle="reports" active="true"></calcite-action>
+          <calcite-action text="New" icon="headset" class="toggle-action" data-toggle="requests"></calcite-action>
+        </calcite-action-bar>
+        
+        <calcite-panel class="toggle-panel" data-toggle="reports">
+          <div slot="header-content">Current Incidents</div>
+          <div slot="header-actions-end">
+            <calcite-action id="clear-analysis-action" title="clear analysis..." text-enabled="" text="clear"></calcite-action>
+            <calcite-action icon="x" title="close panel" class="toggle-close" data-toggle="requests"></calcite-action>
+          </div>
+          
+          <calcite-pick-list id="reports-list" loading="true" role="menu"></calcite-pick-list>
+          
+          <div class="panel-content">
+            <div id="report-feature-node"></div>
+          </div>
+        
+        </calcite-panel>
+        
+        <calcite-panel class="toggle-panel" data-toggle="requests" hidden>
+          <div slot="header-content">Report New Damage</div>
+          <div slot="header-actions-end">
+            <calcite-action icon="x" title="close panel" class="toggle-close" data-toggle="requests"></calcite-action>
+          </div>
+          <div class="panel-content">
+            <div>Enter address of the location where new damage is being reported:</div>
+            <div id="search-container" class="leader-m"></div>
+          </div>
+          <div id="create-report-panel" hidden>
+            <div id="feature-form-container"></div>
+            <div class="margin-l">
+              <calcite-button id="create-report-btn" appearance="outline" color="blue" round="" alignment="center" width="full">
+                Create Damage Report
+              </calcite-button>
+            </div>
+          </div>
+        </calcite-panel>
+      
+      </calcite-shell-panel>
+      
+      <!-- CENTER -->
+      <calcite-shell-center-row position="start" slot="center-row" class="content-col">
+        <div id="view-container" class="view-container">
+          <calcite-loader id="view-updating" type="indeterminate" scale="s"></calcite-loader>
+        </div>
+      </calcite-shell-center-row>
+      
+      <!-- RIGHT -->
+      <calcite-shell-panel slot="contextual-panel" position="end" width-scale="m">
+        <calcite-action-bar slot="action-bar">
+          <calcite-action text="Engineers" icon="users" class="toggle-action" data-toggle="features-list" active="true"></calcite-action>
+          <calcite-action text="Directions" icon="tour" class="toggle-action" data-toggle="directions-list"></calcite-action>
+        </calcite-action-bar>
+        
+        <calcite-panel class="toggle-panel" data-toggle="features-list">
+          <div slot="header-content">Field Engineers</div>
+          <div slot="header-actions-end">
+            <calcite-action icon="x" title="close panel" class="toggle-close" data-toggle="features-list"></calcite-action>
+          </div>
+          <calcite-pick-list id="features-list" loading="true" role="menu"></calcite-pick-list>
+        </calcite-panel>
+        
+        <calcite-panel class="toggle-panel" data-toggle="directions-list" hidden>
+          <div slot="header-content">Directions</div>
+          <div slot="header-actions-end">
+            <calcite-action icon="x" title="close panel" class="toggle-close" data-toggle="directions-list"></calcite-action>
+          </div>
+          <div class="panel-content">
+            <calcite-label layout="inline" disable-spacing="">
+              Add warehouse to this route &nbsp;
+              <calcite-switch id="warehouse-switch" scale="m"></calcite-switch>
+            </calcite-label>
+          </div>
+          <div class="panel-content">
+            <div id="directions-info">Directions</div>
+            <ol id="directions-list"></ol>
+          </div>
+        </calcite-panel>
+      </calcite-shell-panel>
+      
+      <!-- APP DETAILS MODAL -->
+      <calcite-modal id="app-details-modal" color="blue" background-color="grey" scale="m" width="m" role="dialog" aria-labelledby="app-modal-title">
+        <h3 slot="header" id="app-modal-title" class="application-title"></h3>
+        <div slot="content" class="application-description">
+          <div class="padding-l">
+            This story addresses a response to a damage report of a fallen electric distribution pole that has impacted 2 major customers. Using Esri’s location services in this web app, the dispatcher can find the closest available field engineer to send and a nearby utility warehouse to pick up supplies on the way in the safest way possible.
+          </div>
+          <div class="panel-content">
+            This demo application uses the following
+            <calcite-link href="https://developers.arcgis.com/documentation/mapping-apis-and-services/services/" target="_blank">
+              Location Services
+            </calcite-link>
+            from the
+            <calcite-link href="https://developers.arcgis.com/documentation/mapping-apis-and-services/arcgis-platform/" target="_blank">
+              ArcGIS Platform
+            </calcite-link>
+            <ul>
+              <li>
+                <calcite-link href="https://developers.arcgis.com/documentation/mapping-apis-and-services/search/geocoding/" target="_blank">
+                  Geocoding
+                </calcite-link>
+                <div class="margin-s">
+                  Geocoding, also known as address search, is the process of converting text for an address or place to a complete address with a location.
+                </div>
+              </li>
+              <li>
+                <calcite-link href="https://developers.arcgis.com/documentation/mapping-apis-and-services/routing/service-areas/" target="_blank">
+                  Service Areas
+                </calcite-link>
+                <div class="margin-s">
+                  A service area, also known as an isochrone, is a polygon that represents the distance that can be reached when driving or walking on a street network.
+                </div>
+              </li>
+              <li>
+                <calcite-link href="https://developers.arcgis.com/documentation/mapping-apis-and-services/routing/routing/" target="_blank">
+                  Routing
+                </calcite-link>
+                <div class="margin-s">
+                  Routing is the process of finding the best path from an origin to a destination in a street network.
+                </div>
+              </li>
+              <li>
+                <calcite-link href="https://developers.arcgis.com/documentation/mapping-apis-and-services/routing/closest-facility-routing/" target="_blank">
+                  Closest Facility
+                </calcite-link>
+                <div class="margin-s">
+                  Closest facility routing is the process of finding one or more nearby facilities from incidents based on travel time or travel distance.
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div slot="secondary" class="content-row">
+          <calcite-checkbox id="hide-startup-checkbox" slot="secondary">
+            &nbsp;hide on startup
+          </calcite-checkbox>
+        </div>
+      </calcite-modal>
+      
+      <!-- NOTICES ADN ALERTS -->
+      <calcite-notice id="app-notice" icon="" scale="m" width="auto" dismissible="" color="red">
+        <div slot="title"></div>
+        <div slot="message"></div>
+      </calcite-notice>
+    
+    </calcite-shell>
+    
+    <!-- LOADER -->
+    <calcite-loader id="app-loader" active="true" type="indeterminate" scale="l"></calcite-loader>
+    
+    <!-- DAMAGE REPORT ITEM TEMPLATE-->
+    <template id="report-item-template">
+      <calcite-pick-list-item
+        label=""
+        description=""
+        value=""
+        disabled="false"
+        role="menuitemcheckbox">
+        <calcite-action
+          slot="actions-end"
+          label=""
+          appearance="clear"
+          scale="s"
+          title="find field engineer"
+          icon="selection">
+        </calcite-action>
+      </calcite-pick-list-item>
+    </template>
+    
+    <!-- FEATURE ITEM TEMPLATE -->
+    <template id="feature-item-template">
+      <calcite-pick-list-item
+        label=""
+        description=""
+        value=""
+        disabled="false"
+        role="menuitemcheckbox">
+        <calcite-action
+          slot="actions-end"
+          label=""
+          appearance="clear"
+          scale="s"
+          title="dispatch"
+          icon="route-to">
+        </calcite-action>
+      </calcite-pick-list-item>
+    </template>
+  
+  
+  </body>
+</html>
