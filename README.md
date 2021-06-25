@@ -9,20 +9,20 @@ This story addresses a response to a damage report of a fallen electric distribu
 
 This demo application uses the following [Location Services](https://developers.arcgis.com/documentation/mapping-apis-and-services/services/) from the [ArcGIS Platform](https://developers.arcgis.com/documentation/mapping-apis-and-services/arcgis-platform/).
 
-###[Geocoding](https://developers.arcgis.com/documentation/mapping-apis-and-services/search/geocoding/)
+### [Geocoding](https://developers.arcgis.com/documentation/mapping-apis-and-services/search/geocoding/)
 Geocoding, also known as address search, is the process of converting text for an address or place to a complete address with a location.
 
-###[Service Areas](https://developers.arcgis.com/documentation/mapping-apis-and-services/routing/service-areas/)
+### [Service Areas](https://developers.arcgis.com/documentation/mapping-apis-and-services/routing/service-areas/)
 A service area, also known as an isochrone, is a polygon that represents the distance that can be reached when driving or walking on a street network.
 
-###[Routing](https://developers.arcgis.com/documentation/mapping-apis-and-services/routing/routing/)
+### [Routing](https://developers.arcgis.com/documentation/mapping-apis-and-services/routing/routing/)
 Routing is the process of finding the best path from an origin to a destination in a street network.
 
-###[Closest Facility](https://developers.arcgis.com/documentation/mapping-apis-and-services/routing/closest-facility-routing/)
+### [Closest Facility](https://developers.arcgis.com/documentation/mapping-apis-and-services/routing/closest-facility-routing/)
 Closest facility routing is the process of finding one or more nearby facilities from incidents based on travel time or travel distance.
 
 
-##Contact
+## Contact
 
 For questions about the demo web application:
 > John Grayson | Prototype Specialist | Geo Experience Center\
