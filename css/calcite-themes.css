@@ -4,8 +4,7 @@
   --spacing-l: 0.8rem;
 }
 
-.calcite-theme--light,
-[theme=light] {
+.calcite-theme-light {
   --calcite-ui-brand: #007ac2;
   --calcite-ui-brand-hover: #00619B;
   --calcite-ui-brand-press: #004874;
@@ -41,8 +40,7 @@
   --calcite-scrim-background: rgba(255, 255, 255, 0.75);
 }
 
-.calcite-theme--dark,
-[theme=dark] {
+.calcite-theme-dark{
   --calcite-ui-brand: #009AF2;
   --calcite-ui-brand-hover: #007AC2;
   --calcite-ui-brand-press: #00619B;
@@ -77,7 +75,6 @@
   --calcite-link-blue-underline: rgba(0, 160, 255, 0.4);
   --calcite-scrim-background: rgba(0, 0, 0, 0.75);
 }
-
 
 .font-size-s {
   font-size: 9pt;
