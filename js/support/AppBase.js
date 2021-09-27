@@ -63,6 +63,9 @@ class AppBase extends AppParameters {
       // STARTUP DIALOG //
       this.initializeStartupDialog();
 
+      // ANALYTICS //
+      this.initializeAnalytics();
+
     });
   }
 
@@ -240,6 +243,21 @@ class AppBase extends AppParameters {
     appDetailsAction.addEventListener('click', () => {
       appDetailsModal.active = (!appDetailsModal.active);
     });
+
+  }
+
+  /**
+   *
+   */
+  initializeAnalytics() {
+
+    // ANALYTICS //
+    window.dataLayer = {
+      pageType: 'esri-geoxc-apl-demo',
+      pagePath: window.location.pathname,
+      pageTitle: this.title,
+      pageName: this.name
+    };
 
   }
 

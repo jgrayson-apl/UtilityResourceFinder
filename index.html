@@ -7,8 +7,8 @@
     <title class="application-title"></title>
     
     <!-- CALCITE -->
-    <script src="https://unpkg.com/@esri/calcite-components@1.0.0-beta.59/dist/calcite/calcite.esm.js" type="module"></script>
-    <link href="https://unpkg.com/@esri/calcite-components@1.0.0-beta.59/dist/calcite/calcite.css" rel="stylesheet" type="text/css"/>
+    <script src="https://unpkg.com/@esri/calcite-components@1.0.0-beta.65/dist/calcite/calcite.esm.js" type="module"></script>
+    <link href="https://unpkg.com/@esri/calcite-components@1.0.0-beta.65/dist/calcite/calcite.css" rel="stylesheet" type="text/css"/>
     
     <!-- ArcGIS API for JavaScript-->
     <link rel="stylesheet" href="https://js.arcgis.com/4.19/esri/themes/light/main.css">
@@ -193,11 +193,13 @@
             </ul>
           </div>
         </div>
-        <div slot="secondary" class="content-row">
-          <calcite-checkbox id="hide-startup-checkbox" slot="secondary">
-            &nbsp;hide on startup
-          </calcite-checkbox>
+        <div slot="secondary" class="margin-m">
+          <calcite-label layout="inline">
+            <span>hide on startup</span>
+            <calcite-checkbox id="hide-startup-checkbox"></calcite-checkbox>
+          </calcite-label>
         </div>
+        <calcite-button id="app-details-ok-btn" slot="primary" width="full" hidden>OK</calcite-button>
       </calcite-modal>
       
       <!-- NOTICES ADN ALERTS -->

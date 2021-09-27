@@ -324,7 +324,7 @@ class Application extends AppBase {
 
             // FIND FIELD ENGINEERS WITHIN SERVICE AREA //
             this.fieldEngineers.getFeatures({geometry: _serviceAreaFeature.geometry}).then((features) => {
-              if(features && features.length) {
+              if (features && features.length) {
 
                 // NEARBY ENGINEERS //
                 const nearbyEngineers = features.map(feature => feature.attributes.Engineer);
@@ -513,6 +513,12 @@ class Application extends AppBase {
       // CREATE REPORT PANEL //
       const createReportPanel = document.getElementById('create-report-panel');
 
+      // DAMAGE TYPES //
+      const damageTypes = [
+        'Pole Down',
+        'Underground Wire Hit'
+      ];
+
       // SEARCH //
       const search = new Search({
         container: 'search-container',
@@ -533,14 +539,16 @@ class Application extends AppBase {
            11: "reporttime ::: string"
            */
 
+          const damageLevel = 'Critical';
+          const damageType = damageTypes[Math.floor(Math.random() * damageTypes.length)];
           const today = new Date();
 
           newDamageReportFeature = new Graphic({
             geometry: result.feature.geometry,
             attributes: {
-              Name: 'unknown',
-              Damagetype: 'unknown',
-              damagelevel: 'Critical',
+              Name: `${ damageType } at ${ result.name }`,
+              Damagetype: damageType,
+              damagelevel: damageLevel,
               customers: Math.floor(1 + (Math.random() * 149)),
               reportdate: today.valueOf(),
               reporttime: today.toLocaleTimeString('default', {hour: '2-digit', minute: '2-digit'})
