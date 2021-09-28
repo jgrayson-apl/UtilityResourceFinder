@@ -515,8 +515,13 @@ class Application extends AppBase {
 
       // DAMAGE TYPES //
       const damageTypes = [
-        'Pole Down',
-        'Underground Wire Hit'
+        'Pole Leaning/Down',
+        'Transformer Malfunctioning',
+        'Sagging/Downed Wire',
+        'Excavation Damage',
+        'Nesting Wildlife',
+        'Vegetation Encroachment',
+        'Crossarm Damage'
       ];
 
       // SEARCH //
